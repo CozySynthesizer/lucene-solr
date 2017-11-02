@@ -1,0 +1,63 @@
+// Lucene TokenGroup.
+// https://github.com/apache/lucene-solr/blob/master/lucene/highlighter/src/java/org/apache/lucene/search/highlight/TokenGroup.java
+
+{{
+package org.apache.lucene.search.highlight;
+
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
+}}
+
+TokenGroupBase:
+    type Float = Native "Float"
+    type OffsetAttribute = Native "OffsetAttribute"
+
+    type Token = {
+        score : Float,
+        startOffset : Int,
+        endOffset : Int
+    }
+
+    extern floatGtZero(val : Float) : Bool = "{val} > 0.0f"
+    extern floatZero() : Float = "0.0f"
+    extern floatAdd(val1 : Float, val2 : Float) : Float = "{val1} + {val2}"
+    extern startOffset(o : OffsetAttribute) : Int = "{o}.startOffset()"
+
+    state tokens : Set<(Int, Token)>
+    state offsetAtt : OffsetAttribute
+    state total : Float
+
+    invariant unique [s.0 | s <- tokens];
+    invariant unique [s | s <- tokens];
+    invariant len tokens < 50;
+
+    op setOffsetAtt(o : OffsetAttribute)
+        offsetAtt = o;
+
+    op clearTotal()
+        total = floatZero();
+
+    op __addToken(score : Float)
+        assume not ((len tokens) in [s.0 | s <- tokens]);
+        total = floatAdd(total, score);
+        tokens.add((len tokens, { score: score, startOffset: 0, endOffset: 0 }));
+
+    query __getScore(i : Int)
+        assume i >= 0 and i < len tokens;
+        (the [s.1 | s <- tokens, s.0 == i]).score
+
+    query getStartOffset()
+        min [tok.1.startOffset | tok <- tokens, floatGtZero(tok.1.score)]
+
+    query getEndOffset()
+        max [tok.1.endOffset | tok <- tokens, floatGtZero(tok.1.score)]
+
+    query isDistinct()
+        startOffset(offsetAtt) >= getEndOffset()
+
+    query getNumTokens()
+        len tokens
+
+    query __getTotalScore()
+        total
