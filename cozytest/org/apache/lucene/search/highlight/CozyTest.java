@@ -9,32 +9,49 @@ import org.apache.lucene.analysis.en.EnglishAnalyzer;
 
 public class CozyTest {
   public static void main(String[] args) {
-    CozyTest.TestConstructor();
-    CozyTest.TestAddToken();
-    CozyTest.TestIsDistinct();
-    CozyTest.TestGetScore();
-    CozyTest.TestGetStartOffset();
-    CozyTest.TestGetEndOffset();
-    CozyTest.TestGetNumTokens();
-    CozyTest.TestGetTotalScore();
+    new CozyTest().run();
   }
 
-  private static TokenGroup createBasicTokenGroup() {
+  private boolean quiet = false;
+
+  public CozyTest() {
+  }
+
+  public CozyTest(boolean quiet) {
+    this.quiet = quiet;
+  }
+
+  public void run() {
+    this.TestConstructor();
+    this.TestAddToken();
+    this.TestIsDistinct();
+    this.TestGetScore();
+    this.TestGetStartOffset();
+    this.TestGetEndOffset();
+    this.TestGetNumTokens();
+    this.TestGetTotalScore();
+  }
+
+  private TokenGroup createBasicTokenGroup() {
     Reader reader = new StringReader("a b c d eee david zzz");
     Analyzer analyzer = new EnglishAnalyzer();
     TokenStream stream = analyzer.tokenStream(null, reader);
     return new TokenGroup(stream);
   }
 
-  private static void heading(String s) {
-    System.out.println("** " + s);
+  private void heading(String s) {
+    if (!this.quiet) {
+      System.out.println("** " + s);
+    }
   }
 
-  private static void report(String s) {
-    System.out.println("  " + s);
+  private void report(String s) {
+    if (!this.quiet) {
+      System.out.println("  " + s);
+    }
   }
 
-  private static void TestConstructor() {
+  private void TestConstructor() {
     heading("Constructor");
 
     try {
@@ -46,7 +63,7 @@ public class CozyTest {
     }
   }
 
-  private static void TestAddToken() {
+  private void TestAddToken() {
     heading("addToken");
 
     Reader reader = new StringReader("a b c d eee david zzz");
@@ -61,7 +78,7 @@ public class CozyTest {
     report(Float.toString(group.getTotalScore()));
   }
 
-  private static void TestIsDistinct() {
+  private void TestIsDistinct() {
     heading("isDistinct");
 
     TokenGroup g = createBasicTokenGroup();
@@ -75,7 +92,7 @@ public class CozyTest {
     report(String.format("distinct w/ 2 token: %s", g.isDistinct()));
   }
 
-  private static void TestGetScore() {
+  private void TestGetScore() {
     heading("getScore");
 
     TokenGroup g = createBasicTokenGroup();
@@ -93,7 +110,7 @@ public class CozyTest {
     report(String.format("getScore(2): %s", g.getScore(2)));
   }
 
-  private static void TestGetStartOffset() {
+  private void TestGetStartOffset() {
     heading("getStartOffset");
 
     TokenGroup g = createBasicTokenGroup();
@@ -104,7 +121,7 @@ public class CozyTest {
     report(String.format(".22 %d", g.getStartOffset()));
   }
 
-  private static void TestGetEndOffset() {
+  private void TestGetEndOffset() {
     heading("getEndOffset");
 
     TokenGroup g = createBasicTokenGroup();
@@ -115,7 +132,7 @@ public class CozyTest {
     report(String.format(".22 %d", g.getEndOffset()));
   }
 
-  private static void TestGetNumTokens() {
+  private void TestGetNumTokens() {
     heading("getNumTokens");
     TokenGroup g = createBasicTokenGroup();
     report(String.format("initial: %d", g.getNumTokens()));
@@ -124,7 +141,7 @@ public class CozyTest {
     report(String.format(".22 %d", g.getNumTokens()));
   }
 
-  private static void TestGetTotalScore() {
+  private void TestGetTotalScore() {
     heading("getTotalScore");
     TokenGroup g = createBasicTokenGroup();
     report(String.format("initial: %f", g.getTotalScore()));

@@ -82,7 +82,7 @@
          You should build Lucene with "ant jar" first. -->
     <javac
       srcdir="cozytest/org/apache/lucene/search/highlight"
-      includes="CozyTest.java"
+      includes="*.java"
       includeAntRuntime="false"
       classpath="lucene/build/core/lucene-core-7.0.1-SNAPSHOT.jar;lucene/build/highlighter/lucene-highlighter-7.0.1-SNAPSHOT.jar;lucene/build/analysis/common/lucene-analyzers-common-7.0.1-SNAPSHOT.jar"
       >
@@ -94,6 +94,22 @@
     </java>
   </target>
 
+  <target name="cozybench">
+    <!-- Build the singular CozyTest class, then run it.
+         You should build Lucene with "ant jar" first. -->
+    <javac
+      srcdir="cozytest/org/apache/lucene/search/highlight"
+      includes="*.java"
+      includeAntRuntime="false"
+      classpath="lucene/build/core/lucene-core-7.0.1-SNAPSHOT.jar;lucene/build/highlighter/lucene-highlighter-7.0.1-SNAPSHOT.jar;lucene/build/analysis/common/lucene-analyzers-common-7.0.1-SNAPSHOT.jar"
+      >
+      </javac>
+    <java
+      classname="org.apache.lucene.search.highlight.CozyBenchmark"
+      classpath="cozytest/;lucene/build/core/lucene-core-7.0.1-SNAPSHOT.jar;lucene/build/highlighter/lucene-highlighter-7.0.1-SNAPSHOT.jar;lucene/build/analysis/common/lucene-analyzers-common-7.0.1-SNAPSHOT.jar"
+      >
+    </java>
+  </target>
 
   <target name="pitest" depends="resolve-groovy" description="Run PITest on both Lucene and Solr">
     <subant target="pitest" inheritall="false" failonerror="true">
