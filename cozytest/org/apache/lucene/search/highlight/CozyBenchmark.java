@@ -1,0 +1,17 @@
+package org.apache.lucene.search.highlight;
+
+public class CozyBenchmark {
+  private static final int ITERATIONS = 100000;
+
+  public static void main(String[] args) {
+    final long startTime = System.currentTimeMillis();
+
+    for (int i = 0; i < ITERATIONS; i++) {
+      new CozyTest(true).run();
+    }
+
+    final long endTime = System.currentTimeMillis();
+
+    System.out.println("bench time: " + (((float)(endTime - startTime))/1000.0f));
+  }
+}
