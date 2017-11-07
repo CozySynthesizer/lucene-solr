@@ -7,6 +7,10 @@ import org.apache.lucene.analysis.core.*;
 import org.apache.lucene.analysis.tokenattributes.*;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 
+/**
+ * This class exercises a TokenGroup's effective behavior. One can run this
+ * against two TokenGroup implementations to determine how similar they are.
+ */
 public class CozyTest {
   public static void main(String[] args) {
     new CozyTest().run();
@@ -30,6 +34,7 @@ public class CozyTest {
     this.TestGetEndOffset();
     this.TestGetNumTokens();
     this.TestGetTotalScore();
+    this.TestMaxTokens();
   }
 
   private TokenGroup createBasicTokenGroup() {
@@ -72,6 +77,10 @@ public class CozyTest {
     TokenGroup group = new TokenGroup(stream);
 
     group.addToken(2.3f);
+
+    report(Integer.toString(group.getNumTokens()));
+    report(Float.toString(group.getTotalScore()));
+
     group.addToken(33.5f);
 
     report(Integer.toString(group.getNumTokens()));
@@ -153,5 +162,23 @@ public class CozyTest {
     report(String.format("-.22 %f", g.getTotalScore()));
     g.addToken(0.83f);
     report(String.format("+.83 %f", g.getTotalScore()));
+  }
+
+  private void TestMaxTokens() {
+    heading("getMaxTokens");
+    TokenGroup g = createBasicTokenGroup();
+    // Original TokenGroup limits the tokens to 50.
+    // Add 50 tokens and see what happens when more are added.
+
+    for (int i = 0; i < 48; i++) {
+      g.addToken((float) i);
+    }
+
+    g.addToken(48.0f);
+    report(String.format("%f", g.getTotalScore()));
+    g.addToken(49.0f);
+    report(String.format("%f", g.getTotalScore()));
+    g.addToken(50.0f);
+    report(String.format("%f", g.getTotalScore()));
   }
 }
