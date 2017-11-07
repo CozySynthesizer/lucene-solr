@@ -40,7 +40,7 @@ TokenGroupBase:
 
     op __addToken(score : Float)
         assume not ((len tokens) in [s.0 | s <- tokens]);
-        if (floatGtZero(score)) {
+        if (len tokens < 50 and floatGtZero(score)) {
             total = floatAdd(total, score);
             tokens.add((len tokens, { score: score, startOffset: 0, endOffset: 0 }));
         }
