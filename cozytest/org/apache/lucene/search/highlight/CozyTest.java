@@ -211,26 +211,33 @@ public class CozyTest {
 
     g.addToken(1.0f);
     report(String.format("%f", g.getTotalScore()));
+    report(String.format("isDistinct=%b, startOffset=%d, endOffset=%d",
+     g.isDistinct(), g.getStartOffset(), g.getEndOffset()));
     g.addToken(2.0f);
     report(String.format("%f", g.getTotalScore()));
+    report(String.format("isDistinct=%b, startOffset=%d, endOffset=%d",
+     g.isDistinct(), g.getStartOffset(), g.getEndOffset()));
     g.addToken(3.0f);
     report(String.format("%f", g.getTotalScore()));
+    report(String.format("isDistinct=%b, startOffset=%d, endOffset=%d",
+     g.isDistinct(), g.getStartOffset(), g.getEndOffset()));
 
     try {
       stream.incrementToken();
     } catch (IOException ex) {
       report("(Threw IOException.)");
     }
-    report(String.format("isDistinct=%b, startOffset=%d, endOffset=%d",
-     g.isDistinct(), g.getStartOffset(), g.getEndOffset()));
 
     g.addToken(48.0f);
     report(String.format("%f", g.getTotalScore()));
+    report(String.format("isDistinct=%b, startOffset=%d, endOffset=%d",
+     g.isDistinct(), g.getStartOffset(), g.getEndOffset()));
     g.addToken(49.0f);
     report(String.format("%f", g.getTotalScore()));
+    report(String.format("isDistinct=%b, startOffset=%d, endOffset=%d",
+     g.isDistinct(), g.getStartOffset(), g.getEndOffset()));
     g.addToken(50.0f);
     report(String.format("%f", g.getTotalScore()));
-
     report(String.format("isDistinct=%b, startOffset=%d, endOffset=%d",
      g.isDistinct(), g.getStartOffset(), g.getEndOffset()));
   }
