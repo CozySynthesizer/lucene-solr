@@ -6,6 +6,7 @@ import org.apache.lucene.analysis.*;
 import org.apache.lucene.analysis.core.*;
 import org.apache.lucene.analysis.tokenattributes.*;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 /**
  * This class exercises a TokenGroup's effective behavior. One can run this
@@ -35,11 +36,17 @@ public class CozyTest {
     this.TestGetNumTokens();
     this.TestGetTotalScore();
     this.TestMaxTokens();
+
+    this.TestTokenStreamAdvancement();
   }
 
   private TokenGroup createBasicTokenGroup() {
-    Reader reader = new StringReader("a b c d eee david zzz");
-    Analyzer analyzer = new EnglishAnalyzer();
+    Reader reader = new StringReader("a b c d eee david zzz un weufnnoiwjd qien ianef aine a "
+        + "apple cow roger foo foor food foog foot fooy fooi opal "
+        + "quick quack quux sift");
+    Analyzer analyzer = new StandardAnalyzer();
+    //Reader reader = new StringReader("a b c d eee david zzz");
+    //Analyzer analyzer = new EnglishAnalyzer();
     TokenStream stream = analyzer.tokenStream(null, reader);
     return new TokenGroup(stream);
   }
@@ -180,5 +187,48 @@ public class CozyTest {
     report(String.format("%f", g.getTotalScore()));
     g.addToken(50.0f);
     report(String.format("%f", g.getTotalScore()));
+  }
+
+  private void TestTokenStreamAdvancement() {
+    // Do some things that may be dependent on advancing the TokenStream.
+
+    heading("tokenStreamAdvancement");
+    Reader reader = new StringReader("a b c d eee david zzz un weufnnoiwjd qien ianef aine a "
+     + "apple cow roger foo foor food foog foot fooy fooi opal "
+     + "quick quack quux sift");
+    Analyzer analyzer = new StandardAnalyzer();
+    TokenStream stream = analyzer.tokenStream(null, reader);
+    TokenGroup g = new TokenGroup(stream);
+
+    try {
+      stream.reset();
+    } catch (IOException ex) {
+      report("(Threw IOException.)");
+    }
+
+    report(String.valueOf(g.isDistinct()));
+
+    g.addToken(1.0f);
+    report(String.format("%f", g.getTotalScore()));
+    g.addToken(2.0f);
+    report(String.format("%f", g.getTotalScore()));
+    g.addToken(3.0f);
+    report(String.format("%f", g.getTotalScore()));
+
+    try {
+      stream.incrementToken();
+    } catch (IOException ex) {
+      report("(Threw IOException.)");
+    }
+    report(String.valueOf(g.isDistinct()));
+
+    g.addToken(48.0f);
+    report(String.format("%f", g.getTotalScore()));
+    g.addToken(49.0f);
+    report(String.format("%f", g.getTotalScore()));
+    g.addToken(50.0f);
+    report(String.format("%f", g.getTotalScore()));
+
+    report(String.valueOf(g.isDistinct()));
   }
 }
