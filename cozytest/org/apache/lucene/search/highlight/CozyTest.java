@@ -177,15 +177,15 @@ public class CozyTest {
     // Original TokenGroup limits the tokens to 50.
     // Add 50 tokens and see what happens when more are added.
 
-    for (int i = 0; i < 48; i++) {
+    for (int i = 1; i < 49; i++) {
       g.addToken((float) i);
     }
 
-    g.addToken(48.0f);
-    report(String.format("%f", g.getTotalScore()));
     g.addToken(49.0f);
     report(String.format("%f", g.getTotalScore()));
     g.addToken(50.0f);
+    report(String.format("%f", g.getTotalScore()));
+    g.addToken(51.0f);
     report(String.format("%f", g.getTotalScore()));
   }
 
