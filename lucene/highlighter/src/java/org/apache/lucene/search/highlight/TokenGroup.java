@@ -14,8 +14,8 @@ import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
  */
 public class TokenGroup extends TokenGroupBase {
   public TokenGroup(TokenStream tokenStream) {
-    this.setOffsetAtt(tokenStream.addAttribute(OffsetAttribute.class));
-    this.clearTotal();
+    this.__setOffsetAtt(tokenStream.addAttribute(OffsetAttribute.class));
+    this.__clearTotal();
   }
 
   // Cozy's implementation uses the boxed Floats, but we must present an

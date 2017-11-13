@@ -1,6 +1,3 @@
-// Lucene TokenGroup.
-// https://github.com/apache/lucene-solr/blob/master/lucene/highlighter/src/java/org/apache/lucene/search/highlight/TokenGroup.java
-
 {{
 package org.apache.lucene.search.highlight;
 
@@ -33,10 +30,12 @@ TokenGroupBase:
     invariant unique [s | s <- tokens];
     invariant len tokens < 50;
 
-    op setOffsetAtt(o : OffsetAttribute)
+    // __ prefix <==> something for use by the glue subclass.
+
+    op __setOffsetAtt(o : OffsetAttribute)
         offsetAtt = o;
 
-    op clearTotal()
+    op __clearTotal()
         total = floatZero();
 
     op __addToken(score : Float)
@@ -56,6 +55,9 @@ TokenGroupBase:
         assume i >= 0 and i < len tokens;
         (the [s.1 | s <- tokens, s.0 == i]).score
 
+    query __getTotalScore()
+        total
+
     query getStartOffset()
         min [tok.1.startOffset | tok <- tokens, floatGtZero(tok.1.score)]
 
@@ -67,6 +69,3 @@ TokenGroupBase:
 
     query getNumTokens()
         len tokens
-
-    query __getTotalScore()
-        total

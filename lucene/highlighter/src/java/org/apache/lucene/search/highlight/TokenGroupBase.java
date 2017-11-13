@@ -7,7 +7,7 @@ import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 
 public class TokenGroupBase implements java.io.Serializable {
   protected OffsetAttribute _var526;
-  protected Float _var558;
+  protected Float _var553;
   protected java.util.HashSet< _Type39  > _var521;
   public TokenGroupBase() {
     clear();
@@ -15,7 +15,7 @@ public class TokenGroupBase implements java.io.Serializable {
 
   public void clear() {
     _var526 = null;
-    _var558 = null;
+    _var553 = null;
     _var521 = new java.util.HashSet< _Type39  > ();
   }
 
@@ -31,6 +31,10 @@ public class TokenGroupBase implements java.io.Serializable {
       }
     } while (false);
     return (_v41).score;
+  }
+
+  public Float  __getTotalScore () {
+    return _var553;
   }
 
   public int  getStartOffset () {
@@ -88,16 +92,12 @@ public class TokenGroupBase implements java.io.Serializable {
     return _sum57;
   }
 
-  public Float  __getTotalScore () {
-    return _var558;
-  }
-
-  public void setOffsetAtt (OffsetAttribute o) {
+  public void __setOffsetAtt (OffsetAttribute o) {
     _var526 = o;
   }
 
-  public void clearTotal () {
-    _var558 = (0.0f);
+  public void __clearTotal () {
+    _var553 = (0.0f);
   }
 
   public void __addToken (Float score) {
@@ -171,15 +171,15 @@ for (_Type39 _x95 : _var521) {
   _sum93 = (_sum93 + 1);
 }
       if ((((0 == _sum93)) || (score > 0.0f))) {
-        _v92 = (_var558 + score);
+        _v92 = (_var553 + score);
       } else {
-        _v92 = _var558;
+        _v92 = _var553;
       }
       _v88 = _v92;
     } else {
-      _v88 = _var558;
+      _v88 = _var553;
     }
-    _var558 = _v88;
+    _var553 = _v88;
   }
 
   public static class Token implements java.io.Serializable {
