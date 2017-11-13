@@ -23,6 +23,7 @@ TokenGroupBase:
     extern floatZero() : Float = "0.0f"
     extern floatAdd(val1 : Float, val2 : Float) : Float = "{val1} + {val2}"
     extern startOffset(o : OffsetAttribute) : Int = "{o}.startOffset()"
+    extern endOffset(o : OffsetAttribute) : Int = "{o}.endOffset()"
 
     state tokens : Set<(Int, Token)>
     state offsetAtt : OffsetAttribute
@@ -40,9 +41,15 @@ TokenGroupBase:
 
     op __addToken(score : Float)
         assume not ((len tokens) in [s.0 | s <- tokens]);
-        if (len tokens < 50 and floatGtZero(score)) {
-            total = floatAdd(total, score);
-            tokens.add((len tokens, { score: score, startOffset: 0, endOffset: 0 }));
+
+        if (len tokens < 50) {
+            if (0 == len tokens or floatGtZero(score)) {
+                total = floatAdd(total, score);
+            }
+
+            tokens.add((len tokens, { score: score,
+                startOffset: startOffset(offsetAtt),
+                endOffset: endOffset(offsetAtt) }));
         }
 
     query __getScore(i : Int)
@@ -56,7 +63,7 @@ TokenGroupBase:
         max [tok.1.endOffset | tok <- tokens, floatGtZero(tok.1.score)]
 
     query isDistinct()
-        startOffset(offsetAtt) >= getEndOffset()
+        startOffset(offsetAtt) >= max [tok.1.endOffset | tok <- tokens]
 
     query getNumTokens()
         len tokens
