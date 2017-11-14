@@ -181,7 +181,8 @@ public class CozyTest {
       g.addToken((float) i);
 
       if (i >= 48) {
-        report(String.format("adding token #%d: total=%f", i, g.getTotalScore()));
+        report(String.format("adding token #%d: total=%f, numTokens=%d",
+         i, g.getTotalScore(), g.getNumTokens()));
       }
     }
   }
