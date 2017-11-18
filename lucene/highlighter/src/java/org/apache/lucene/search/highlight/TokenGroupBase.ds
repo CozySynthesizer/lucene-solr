@@ -42,7 +42,7 @@ TokenGroupBase:
         assume not ((len tokens) in [s.0 | s <- tokens]);
 
         if (len tokens < 50) {
-            if (0 == len tokens or floatGtZero(score)) {
+            if (empty tokens or floatGtZero(score)) {
                 total = floatAdd(total, score);
             }
 
