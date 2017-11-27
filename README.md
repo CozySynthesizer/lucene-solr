@@ -15,8 +15,6 @@
     limitations under the License.
  -->
 
-# (TEST)
-
 # Apache Lucene and Solr
 
 Apache Lucene is a high-performance, full featured text search engine library
