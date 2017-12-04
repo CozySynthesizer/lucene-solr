@@ -6,253 +6,253 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 
 public class TokenGroupBase implements java.io.Serializable {
-  protected OffsetAttribute _var525;
-  protected Float _var552;
-  protected java.util.HashSet< _Type39  > _var520;
+  protected java.util.ArrayList<_Type14 > _var532;
+  protected OffsetAttribute _var571;
+  protected Float _var613;
   public TokenGroupBase() {
     clear();
   }
 
   public void clear() {
-    _var525 = null;
-    _var552 = null;
-    _var520 = new java.util.HashSet< _Type39  > ();
+    _var532 = new java.util.ArrayList<_Type14 > ();
+    _var571 = null;
+    _var613 = null;
   }
 
   public Float  __getScore (int i) {
-    Token _v41;
-    Token _var44;
-    _var44 = new Token(null, 0, 0);
-    _v41 = _var44;
-    _label42: do {
-      for (_Type39 _x45 : _var520) {
-        if ((((_x45)._0 == i))) {
-          Token _var46;
-          _var46 = (_x45)._1;
-          _v41 = _var46;
-          break _label42;
+    Token _v16;
+    Token _var19;
+    _var19 = new Token(null, 0, 0);
+    _v16 = _var19;
+    _label17: do {
+      for (_Type14 _x20 : _var532) {
+        if ((((_x20)._0 == i))) {
+          Token _var21;
+          _var21 = (_x20)._1;
+          _v16 = _var21;
+          break _label17;
         }
       }
     } while (false);
-    return (_v41).score;
+    return (_v16).score;
   }
 
   public Float  __getTotalScore () {
-    return _var552;
+    return _var613;
   }
 
   public int  getStartOffset () {
-    int _min47;
-    int _var50;
-    _var50 = 0;
-    _min47 = _var50;
-    boolean _first48;
-    boolean _var51;
-    _var51 = true;
-    _first48 = _var51;
-    for (_Type39 _x52 : _var520) {
-      if ((((_x52)._1).score > 0.0f)) {
-        if ((_first48 || (((_x52)._1).startOffset < _min47))) {
-          boolean _var53;
-          _var53 = false;
-          _first48 = _var53;
-          int _var54;
-          _var54 = ((_x52)._1).startOffset;
-          _min47 = _var54;
+    int _min22;
+    int _var25;
+    _var25 = 0;
+    _min22 = _var25;
+    boolean _first23;
+    boolean _var26;
+    _var26 = true;
+    _first23 = _var26;
+    for (_Type14 _x27 : _var532) {
+      if ((((_x27)._1).score > 0.0f)) {
+        if ((_first23 || (((_x27)._1).startOffset < _min22))) {
+          boolean _var28;
+          _var28 = false;
+          _first23 = _var28;
+          int _var29;
+          _var29 = ((_x27)._1).startOffset;
+          _min22 = _var29;
         }
       }
     }
-    return _min47;
+    return _min22;
   }
 
   public int  getEndOffset () {
-    int _max55;
-    int _var58;
-    _var58 = 0;
-    _max55 = _var58;
-    boolean _first56;
-    boolean _var59;
-    _var59 = true;
-    _first56 = _var59;
-    for (_Type39 _x60 : _var520) {
-      if ((((_x60)._1).score > 0.0f)) {
-        if ((_first56 || (((_x60)._1).endOffset > _max55))) {
-          boolean _var61;
-          _var61 = false;
-          _first56 = _var61;
-          int _var62;
-          _var62 = ((_x60)._1).endOffset;
-          _max55 = _var62;
+    int _max30;
+    int _var33;
+    _var33 = 0;
+    _max30 = _var33;
+    boolean _first31;
+    boolean _var34;
+    _var34 = true;
+    _first31 = _var34;
+    for (_Type14 _x35 : _var532) {
+      if ((((_x35)._1).score > 0.0f)) {
+        if ((_first31 || (((_x35)._1).endOffset > _max30))) {
+          boolean _var36;
+          _var36 = false;
+          _first31 = _var36;
+          int _var37;
+          _var37 = ((_x35)._1).endOffset;
+          _max30 = _var37;
         }
       }
     }
-    return _max55;
+    return _max30;
   }
 
   public boolean  isDistinct () {
-    int _max63;
-    int _var66;
-    _var66 = 0;
-    _max63 = _var66;
-    boolean _first64;
-    boolean _var67;
-    _var67 = true;
-    _first64 = _var67;
-    for (_Type39 _x68 : _var520) {
-      if ((_first64 || (((_x68)._1).endOffset > _max63))) {
-        boolean _var69;
-        _var69 = false;
-        _first64 = _var69;
-        int _var70;
-        _var70 = ((_x68)._1).endOffset;
-        _max63 = _var70;
+    int _max38;
+    int _var41;
+    _var41 = 0;
+    _max38 = _var41;
+    boolean _first39;
+    boolean _var42;
+    _var42 = true;
+    _first39 = _var42;
+    for (_Type14 _x43 : _var532) {
+      if ((_first39 || (((_x43)._1).endOffset > _max38))) {
+        boolean _var44;
+        _var44 = false;
+        _first39 = _var44;
+        int _var45;
+        _var45 = ((_x43)._1).endOffset;
+        _max38 = _var45;
       }
     }
-    return ((_var525.startOffset()) >= _max63);
+    return ((_var571.startOffset()) >= _max38);
   }
 
   public int  getNumTokens () {
-    int _sum71;
-    int _var73;
-    _var73 = 0;
-    _sum71 = _var73;
-    for (_Type39 _x74 : _var520) {
-      int _var75;
-      _var75 = (_sum71 + 1);
-      _sum71 = _var75;
+    int _sum46;
+    int _var48;
+    _var48 = 0;
+    _sum46 = _var48;
+    for (_Type14 _x49 : _var532) {
+      int _var50;
+      _var50 = (_sum46 + 1);
+      _sum46 = _var50;
     }
-    return _sum71;
+    return _sum46;
   }
 
   public void __setOffsetAtt (OffsetAttribute o) {
-    OffsetAttribute _var76;
-    _var76 = o;
-    _var525 = _var76;
+    OffsetAttribute _var51;
+    _var51 = o;
+    _var571 = _var51;
   }
 
   public void __clearTotal () {
-    Float _var77;
-    _var77 = (0.0f);
-    _var552 = _var77;
+    Float _var52;
+    _var52 = (0.0f);
+    _var613 = _var52;
   }
 
   public void __addToken (Float score) {
-    java.util.ArrayList<_Type39 > _v78;
-    _v78 = new java.util.ArrayList<_Type39 > ();
-    for (_Type39 _x94 : _var520) {
-      _v78.add(_x94);
+    java.util.ArrayList<_Type14 > _v53;
+    _v53 = new java.util.ArrayList<_Type14 > ();
+    for (_Type14 _x69 : _var532) {
+      _v53.add(_x69);
     }
-    int _sum81;
-    int _var83;
-    _var83 = 0;
-    _sum81 = _var83;
-    for (_Type39 _x84 : _var520) {
-      int _var85;
-      _var85 = (_sum81 + 1);
-      _sum81 = _var85;
+    int _sum56;
+    int _var58;
+    _var58 = 0;
+    _sum56 = _var58;
+    for (_Type14 _x59 : _var532) {
+      int _var60;
+      _var60 = (_sum56 + 1);
+      _sum56 = _var60;
     }
-    if ((_sum81 < 50)) {
-      for (_Type39 _x86 : _var520) {
-        _v78.remove(_x86);
+    if ((_sum56 < 50)) {
+      for (_Type14 _x61 : _var532) {
+        _v53.remove(_x61);
       }
-      int _sum87;
-      int _var89;
-      _var89 = 0;
-      _sum87 = _var89;
-      for (_Type39 _x90 : _var520) {
-        int _var91;
-        _var91 = (_sum87 + 1);
-        _sum87 = _var91;
+      int _sum62;
+      int _var64;
+      _var64 = 0;
+      _sum62 = _var64;
+      for (_Type14 _x65 : _var532) {
+        int _var66;
+        _var66 = (_sum62 + 1);
+        _sum62 = _var66;
       }
-      _v78.remove(new _Type39(_sum87, new Token(score, (_var525.startOffset()), (_var525.endOffset()))));
+      _v53.remove(new _Type14(_sum62, new Token(score, (_var571.startOffset()), (_var571.endOffset()))));
     } else {
-      for (_Type39 _x92 : _var520) {
-        _v78.remove(_x92);
+      for (_Type14 _x67 : _var532) {
+        _v53.remove(_x67);
       }
     }
-    for (_Type39 _x95 : _v78) {
-      _var520.remove(_x95);
+    for (_Type14 _x70 : _v53) {
+      _var532.remove(_x70);
     }
-    java.util.ArrayList<_Type39 > _v96;
-    _v96 = new java.util.ArrayList<_Type39 > ();
-    int _sum101;
-    int _var103;
-    _var103 = 0;
-    _sum101 = _var103;
-    for (_Type39 _x104 : _var520) {
-      int _var105;
-      _var105 = (_sum101 + 1);
-      _sum101 = _var105;
+    java.util.ArrayList<_Type14 > _v71;
+    _v71 = new java.util.ArrayList<_Type14 > ();
+    int _sum76;
+    int _var78;
+    _var78 = 0;
+    _sum76 = _var78;
+    for (_Type14 _x79 : _var532) {
+      int _var80;
+      _var80 = (_sum76 + 1);
+      _sum76 = _var80;
     }
-    if ((_sum101 < 50)) {
-      for (_Type39 _x106 : _var520) {
-        _v96.add(_x106);
+    if ((_sum76 < 50)) {
+      for (_Type14 _x81 : _var532) {
+        _v71.add(_x81);
       }
-      int _sum107;
-      int _var109;
-      _var109 = 0;
-      _sum107 = _var109;
-      for (_Type39 _x110 : _var520) {
-        int _var111;
-        _var111 = (_sum107 + 1);
-        _sum107 = _var111;
+      int _sum82;
+      int _var84;
+      _var84 = 0;
+      _sum82 = _var84;
+      for (_Type14 _x85 : _var532) {
+        int _var86;
+        _var86 = (_sum82 + 1);
+        _sum82 = _var86;
       }
-      _v96.add(new _Type39(_sum107, new Token(score, (_var525.startOffset()), (_var525.endOffset()))));
+      _v71.add(new _Type14(_sum82, new Token(score, (_var571.startOffset()), (_var571.endOffset()))));
     } else {
-      for (_Type39 _x112 : _var520) {
-        _v96.add(_x112);
+      for (_Type14 _x87 : _var532) {
+        _v71.add(_x87);
       }
     }
-    for (_Type39 _x98 : _var520) {
-      _v96.remove(_x98);
+    for (_Type14 _x73 : _var532) {
+      _v71.remove(_x73);
     }
-    for (_Type39 _x113 : _v96) {
-      _var520.add(_x113);
+    for (_Type14 _x88 : _v71) {
+      _var532.add(_x88);
     }
-    Float _var114;
-    Float _v115;
-    int _sum116;
-    int _var118;
-    _var118 = 0;
-    _sum116 = _var118;
-    for (_Type39 _x119 : _var520) {
-      int _var120;
-      _var120 = (_sum116 + 1);
-      _sum116 = _var120;
+    Float _var89;
+    Float _v90;
+    int _sum91;
+    int _var93;
+    _var93 = 0;
+    _sum91 = _var93;
+    for (_Type14 _x94 : _var532) {
+      int _var95;
+      _var95 = (_sum91 + 1);
+      _sum91 = _var95;
     }
-    if ((_sum116 < 50)) {
-      Float _var121;
-      Float _v122;
-      boolean _v123;
-      boolean _var126;
-      _var126 = true;
-      _v123 = _var126;
-      _label124: do {
-        for (_Type39 _x127 : _var520) {
-          boolean _var128;
-          _var128 = false;
-          _v123 = _var128;
-          break _label124;
+    if ((_sum91 < 50)) {
+      Float _var96;
+      Float _v97;
+      boolean _v98;
+      boolean _var101;
+      _var101 = true;
+      _v98 = _var101;
+      _label99: do {
+        for (_Type14 _x102 : _var532) {
+          boolean _var103;
+          _var103 = false;
+          _v98 = _var103;
+          break _label99;
         }
       } while (false);
-      if ((_v123 || (score > 0.0f))) {
-        Float _var129;
-        _var129 = (_var552 + score);
-        _v122 = _var129;
+      if ((_v98 || (score > 0.0f))) {
+        Float _var104;
+        _var104 = (_var613 + score);
+        _v97 = _var104;
       } else {
-        Float _var130;
-        _var130 = _var552;
-        _v122 = _var130;
+        Float _var105;
+        _var105 = _var613;
+        _v97 = _var105;
       }
-      _var121 = _v122;
-      _v115 = _var121;
+      _var96 = _v97;
+      _v90 = _var96;
     } else {
-      Float _var131;
-      _var131 = _var552;
-      _v115 = _var131;
+      Float _var106;
+      _var106 = _var613;
+      _v90 = _var106;
     }
-    _var114 = _v115;
-    _var552 = _var114;
+    _var89 = _v90;
+    _var613 = _var89;
   }
 
   public static class Token implements java.io.Serializable {
@@ -269,11 +269,11 @@ public class TokenGroupBase implements java.io.Serializable {
     }
     @Override
     public int hashCode() {
-      int _hash_code132 = 0;
-      _hash_code132 = (_hash_code132 * 31) ^ ((score).hashCode());
-      _hash_code132 = (_hash_code132 * 31) ^ (startOffset);
-      _hash_code132 = (_hash_code132 * 31) ^ (endOffset);
-      return _hash_code132;
+      int _hash_code107 = 0;
+      _hash_code107 = (_hash_code107 * 31) ^ ((score).hashCode());
+      _hash_code107 = (_hash_code107 * 31) ^ (startOffset);
+      _hash_code107 = (_hash_code107 * 31) ^ (endOffset);
+      return _hash_code107;
     }
     @Override
     public boolean equals(Object other) {
@@ -284,28 +284,28 @@ public class TokenGroupBase implements java.io.Serializable {
       return ((java.util.Objects.equals(this.score, o.score)) && (((this.startOffset == o.startOffset)) && ((this.endOffset == o.endOffset))));
     }
   }
-  public static class _Type39 implements java.io.Serializable {
+  public static class _Type14 implements java.io.Serializable {
     private int _0;
     private Token _1;
     public int  get_0() { return _0; }
     public Token  get_1() { return _1; }
-    public _Type39(int _0, Token _1) {
+    public _Type14(int _0, Token _1) {
       this._0 = _0;
       this._1 = _1;
     }
     @Override
     public int hashCode() {
-      int _hash_code133 = 0;
-      _hash_code133 = (_hash_code133 * 31) ^ (_0);
-      _hash_code133 = (_hash_code133 * 31) ^ ((_1).hashCode());
-      return _hash_code133;
+      int _hash_code108 = 0;
+      _hash_code108 = (_hash_code108 * 31) ^ (_0);
+      _hash_code108 = (_hash_code108 * 31) ^ ((_1).hashCode());
+      return _hash_code108;
     }
     @Override
     public boolean equals(Object other) {
       if (other == null) return false;
       if (other == this) return true;
-      if (!(other instanceof _Type39)) return false;
-      _Type39 o = (_Type39)other;
+      if (!(other instanceof _Type14)) return false;
+      _Type14 o = (_Type14)other;
       return (((this._0 == o._0)) && (java.util.Objects.equals(this._1, o._1)));
     }
   }
