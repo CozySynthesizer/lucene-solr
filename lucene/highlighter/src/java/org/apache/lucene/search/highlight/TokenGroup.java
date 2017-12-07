@@ -13,15 +13,18 @@ import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
  * The Cozy-synthesized implementation is TokenGroupBase.)</p>
  */
 public class TokenGroup extends TokenGroupBase {
+  private OffsetAttribute offsetAttribute;
+
   public TokenGroup(TokenStream tokenStream) {
-    this.__setOffsetAtt(tokenStream.addAttribute(OffsetAttribute.class));
+    this.offsetAttribute = tokenStream.addAttribute(OffsetAttribute.class);
     this.__clearTotal();
   }
 
   // Cozy's implementation uses the boxed Floats, but we must present an
   // interface using unboxed native floats.
   public void addToken(float score) {
-    super.__addToken((Float)score);
+    super.__addToken((Float)score,
+     this.offsetAttribute.startOffset(), this.offsetAttribute.endOffset());
   }
 
   public float getTotalScore() {
@@ -30,5 +33,9 @@ public class TokenGroup extends TokenGroupBase {
 
   public float getScore(int i) {
     return (float) super.__getScore(i);
+  }
+
+  public boolean isDistinct() {
+    return super.__isDistinct(this.offsetAttribute.startOffset());
   }
 }

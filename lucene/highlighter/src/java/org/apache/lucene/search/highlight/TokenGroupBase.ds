@@ -19,40 +19,33 @@ TokenGroupBase:
     extern floatGtZero(val : Float) : Bool = "{val} > 0.0f"
     extern floatZero() : Float = "0.0f"
     extern floatAdd(val1 : Float, val2 : Float) : Float = "{val1} + {val2}"
-    extern startOffset(o : OffsetAttribute) : Int = "{o}.startOffset()"
-    extern endOffset(o : OffsetAttribute) : Int = "{o}.endOffset()"
 
     state tokens : Set<(Int, Token)>
-    state offsetAtt : OffsetAttribute
     state total : Float
 
     invariant unique [s.0 | s <- tokens];
     invariant unique [s | s <- tokens];
-    invariant len tokens < 50;
+    invariant sum[1 | t <- tokens] < 50;
 
     // __ prefix <==> something for use by the glue subclass.
-
-    op __setOffsetAtt(o : OffsetAttribute)
-        offsetAtt = o;
 
     op __clearTotal()
         total = floatZero();
 
-    op __addToken(score : Float)
-        assume not ((len tokens) in [s.0 | s <- tokens]);
+    op __addToken(score : Float, startOffset : Int, endOffset : Int)
+        assume not ((sum[1 | t <- tokens]) in [s.0 | s <- tokens]);
 
-        if (len tokens < 50) {
+        if (sum[1 | t <- tokens] < 50) {
             if (empty tokens or floatGtZero(score)) {
                 total = floatAdd(total, score);
             }
 
-            tokens.add((len tokens, { score: score,
-                startOffset: startOffset(offsetAtt),
-                endOffset: endOffset(offsetAtt) }));
+            tokens.add((sum[1 | t <- tokens],
+                { score: score, startOffset: startOffset, endOffset: endOffset }));
         }
 
     query __getScore(i : Int)
-        assume i >= 0 and i < len tokens;
+        assume i >= 0 and i < sum[1 | t <- tokens];
         (the [s.1 | s <- tokens, s.0 == i]).score
 
     query __getTotalScore()
@@ -64,8 +57,8 @@ TokenGroupBase:
     query getEndOffset()
         max [tok.1.endOffset | tok <- tokens, floatGtZero(tok.1.score)]
 
-    query isDistinct()
-        startOffset(offsetAtt) >= max [tok.1.endOffset | tok <- tokens]
+    query __isDistinct(startOffset : Int)
+        startOffset >= max [tok.1.endOffset | tok <- tokens]
 
     query getNumTokens()
-        len tokens
+        sum[1 | t <- tokens]
