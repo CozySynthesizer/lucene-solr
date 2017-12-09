@@ -17,22 +17,11 @@ public class TokenGroup extends TokenGroupBase {
 
   public TokenGroup(TokenStream tokenStream) {
     this.offsetAttribute = tokenStream.addAttribute(OffsetAttribute.class);
-    this.__clearTotal();
   }
 
-  // Cozy's implementation uses the boxed Floats, but we must present an
-  // interface using unboxed native floats.
   public void addToken(float score) {
-    super.__addToken((Float)score,
+    super.__addToken(score,
      this.offsetAttribute.startOffset(), this.offsetAttribute.endOffset());
-  }
-
-  public float getTotalScore() {
-    return (float) super.__getTotalScore();
-  }
-
-  public float getScore(int i) {
-    return (float) super.__getScore(i);
   }
 
   public boolean isDistinct() {
