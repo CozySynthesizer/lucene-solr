@@ -2,19 +2,19 @@
 package org.apache.lucene.search.highlight;
 
 public class TokenGroupBase implements java.io.Serializable {
-  protected java.util.ArrayList<_Type16 > _var199;
+  protected java.util.ArrayList<_Type16 > _var201;
   public TokenGroupBase() {
     clear();
   }
 
   public TokenGroupBase(java.util.ArrayList<_Type16 > tokens) {
-    _var199 = new java.util.ArrayList<_Type16 > ();
+    _var201 = new java.util.ArrayList<_Type16 > ();
     for (_Type16 _x18 : tokens) {
-      _var199.add(_x18);
+      _var201.add(_x18);
     }
   }
   public void clear() {
-    _var199 = new java.util.ArrayList<_Type16 > ();
+    _var201 = new java.util.ArrayList<_Type16 > ();
   }
 
   public boolean  __isDistinct (int startOffset) {
@@ -26,7 +26,7 @@ public class TokenGroupBase implements java.io.Serializable {
     boolean _var24;
     _var24 = true;
     _first21 = _var24;
-    for (_Type16 _x25 : _var199) {
+    for (_Type16 _x25 : _var201) {
       if (((_x25)._1).important) {
         if ((_first21 || (((_x25)._1).endOffset > _max20))) {
           boolean _var26;
@@ -47,7 +47,7 @@ public class TokenGroupBase implements java.io.Serializable {
     _var31 = new Token(0, 0, 0, false);
     _v28 = _var31;
     _label29: do {
-      for (_Type16 _x32 : _var199) {
+      for (_Type16 _x32 : _var201) {
         if (((_x32)._1).important) {
           if ((((_x32)._0 == i))) {
             Token _var33;
@@ -66,7 +66,7 @@ public class TokenGroupBase implements java.io.Serializable {
     float _var36;
     _var36 = 0;
     _sum34 = _var36;
-    for (_Type16 _x37 : _var199) {
+    for (_Type16 _x37 : _var201) {
       if (((_x37)._1).important) {
         float _var38;
         _var38 = (_sum34 + ((_x37)._1).score);
@@ -85,7 +85,7 @@ public class TokenGroupBase implements java.io.Serializable {
     boolean _var43;
     _var43 = true;
     _first40 = _var43;
-    for (_Type16 _x44 : _var199) {
+    for (_Type16 _x44 : _var201) {
       if (((_x44)._1).important) {
         if ((((_x44)._1).score > (0.0f))) {
           if ((_first40 || (((_x44)._1).startOffset < _min39))) {
@@ -111,7 +111,7 @@ public class TokenGroupBase implements java.io.Serializable {
     boolean _var51;
     _var51 = true;
     _first48 = _var51;
-    for (_Type16 _x52 : _var199) {
+    for (_Type16 _x52 : _var201) {
       if (((_x52)._1).important) {
         if ((((_x52)._1).score > (0.0f))) {
           if ((_first48 || (((_x52)._1).endOffset > _max47))) {
@@ -133,7 +133,7 @@ public class TokenGroupBase implements java.io.Serializable {
     int _var57;
     _var57 = 0;
     _sum55 = _var57;
-    for (_Type16 _x58 : _var199) {
+    for (_Type16 _x58 : _var201) {
       if (((_x58)._1).important) {
         int _var59;
         _var59 = (_sum55 + 1);
@@ -149,17 +149,17 @@ public class TokenGroupBase implements java.io.Serializable {
     _var60 = new java.util.ArrayList<_Type16 > ();
     java.util.ArrayList<_Type16 > _v62;
     _v62 = new java.util.ArrayList<_Type16 > ();
-    for (_Type16 _x96 : _var199) {
+    for (_Type16 _x96 : _var201) {
       _v62.add(_x96);
     }
-    for (_Type16 _x64 : _var199) {
+    for (_Type16 _x64 : _var201) {
       _v62.remove(_x64);
     }
     int _sum65;
     int _var67;
     _var67 = 0;
     _sum65 = _var67;
-    for (_Type16 _x68 : _var199) {
+    for (_Type16 _x68 : _var201) {
       if (((_x68)._1).important) {
         int _var69;
         _var69 = (_sum65 + 1);
@@ -172,7 +172,7 @@ public class TokenGroupBase implements java.io.Serializable {
     _var85 = true;
     _v82 = _var85;
     _label83: do {
-      for (_Type16 _x86 : _var199) {
+      for (_Type16 _x86 : _var201) {
         boolean _var87;
         _var87 = false;
         _v82 = _var87;
@@ -185,14 +185,14 @@ public class TokenGroupBase implements java.io.Serializable {
       int _var91;
       _var91 = 0;
       _sum89 = _var91;
-      for (_Type16 _x92 : _var199) {
+      for (_Type16 _x92 : _var201) {
         if (((_x92)._1).important) {
           int _var93;
           _var93 = (_sum89 + 1);
           _sum89 = _var93;
         }
       }
-      _var88 = (_sum89 < 50);
+      _var88 = (_sum89 < (50));
       _v81 = _var88;
     } else {
       boolean _var94;
@@ -209,14 +209,14 @@ public class TokenGroupBase implements java.io.Serializable {
     _var98 = new java.util.ArrayList<_Type16 > ();
     java.util.ArrayList<_Type16 > _v100;
     _v100 = new java.util.ArrayList<_Type16 > ();
-    for (_Type16 _x104 : _var199) {
+    for (_Type16 _x104 : _var201) {
       _v100.add(_x104);
     }
     int _sum105;
     int _var107;
     _var107 = 0;
     _sum105 = _var107;
-    for (_Type16 _x108 : _var199) {
+    for (_Type16 _x108 : _var201) {
       if (((_x108)._1).important) {
         int _var109;
         _var109 = (_sum105 + 1);
@@ -229,7 +229,7 @@ public class TokenGroupBase implements java.io.Serializable {
     _var125 = true;
     _v122 = _var125;
     _label123: do {
-      for (_Type16 _x126 : _var199) {
+      for (_Type16 _x126 : _var201) {
         boolean _var127;
         _var127 = false;
         _v122 = _var127;
@@ -242,14 +242,14 @@ public class TokenGroupBase implements java.io.Serializable {
       int _var131;
       _var131 = 0;
       _sum129 = _var131;
-      for (_Type16 _x132 : _var199) {
+      for (_Type16 _x132 : _var201) {
         if (((_x132)._1).important) {
           int _var133;
           _var133 = (_sum129 + 1);
           _sum129 = _var133;
         }
       }
-      _var128 = (_sum129 < 50);
+      _var128 = (_sum129 < (50));
       _v121 = _var128;
     } else {
       boolean _var134;
@@ -257,7 +257,7 @@ public class TokenGroupBase implements java.io.Serializable {
       _v121 = _var134;
     }
     _v100.add(new _Type16(_sum105, new Token(score, startOffset, endOffset, _v121)));
-    for (_Type16 _x102 : _var199) {
+    for (_Type16 _x102 : _var201) {
       _v100.remove(_x102);
     }
     for (_Type16 _x135 : _v100) {
@@ -265,10 +265,10 @@ public class TokenGroupBase implements java.io.Serializable {
     }
     _name14 = _var98;
     for (_Type16 _x136 : _name13) {
-      _var199.remove(_x136);
+      _var201.remove(_x136);
     }
     for (_Type16 _x137 : _name14) {
-      _var199.add(_x137);
+      _var201.add(_x137);
     }
   }
 

@@ -11,6 +11,7 @@ TokenGroupBase:
     }
 
     extern floatZero() : Float = "0.0f"
+    extern MAX_TOKENS() : Int = "50"
 
     state tokens : Set<(Int, Token)>
 
@@ -28,7 +29,8 @@ TokenGroupBase:
             score: score,
             startOffset: startOffset,
             endOffset: endOffset,
-            important: (empty tokens or score > floatZero()) and len importantTokens() < 50
+            important: (empty tokens or score > floatZero())
+                        and len importantTokens() < MAX_TOKENS()
             }));
 
     query __isDistinct(startOffset : Int)
