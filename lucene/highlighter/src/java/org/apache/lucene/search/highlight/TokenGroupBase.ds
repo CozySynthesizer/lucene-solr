@@ -16,6 +16,7 @@ TokenGroupBase:
     state tokens : Set<(Int, Token)>
 
     invariant unique [s.0 | s <- tokens];
+    invariant MAX_TOKENS() > 0;
 
     private query importantTokens()
         [ t | t <- tokens, t.1.important]
