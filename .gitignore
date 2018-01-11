@@ -25,3 +25,7 @@ pom.xml
 /nbproject
 /nb-build
 .pydevproject
+
+# Cozy stuff
+TokenGroupBase.checked
+TokenGroupBase.synthesized
